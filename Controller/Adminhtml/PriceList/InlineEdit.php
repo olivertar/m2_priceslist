@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * This file is part of the Orangecat PricesList package.
+ *
+ * (c) Oliverio Gombert <olivertar@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Orangecat\PricesList\Controller\Adminhtml\PriceList;
+
+use Magento\Backend\App\Action;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\Exception\LocalizedException;
+
+class InlineEdit extends Action
+{
+    public const ADMIN_RESOURCE = 'Orangecat_PricesList::priceslist';
+
+    /**
+     * @param Context $context
+     * @param JsonFactory $jsonFactory
+     */
+    public function __construct(
+        Context $context,
+        private readonly JsonFactory $jsonFactory
+    ) {
+        parent::__construct($context);
+    }
+
+    /**
+     * Inline edit action
+     *
+     * @return \Magento\Framework\Controller\ResultInterface
+     */
+    public function execute()
+    {
+        /** @var \Magento\Framework\Controller\Result\Json $resultJson */
+        $resultJson = $this->jsonFactory->create();
+        $error = false;
+        $messages = [];
+
+        if ($this->getRequest()->getParam('isAjax')) {
+            $postItems = $this->getRequest()->getParam('items', []);
+            if (!count($postItems)) {
+                $messages[] = __('Please correct the data sent.');
+                $error = true;
+            } else {
+                foreach (array_keys($postItems) as $id) {
+                    /** @var \Orangecat\PricesList\Model\PriceList $model */
+                    $model = $this->_objectManager->create(\Orangecat\PricesList\Model\PriceList::class)->load($id);
+                    try {
+                        $model->addData($postItems[$id]);
+                        $model->save();
+                    } catch (LocalizedException $e) {
+                        $messages[] = $this->getErrorWithPriceListId($model, $e->getMessage());
+                        $error = true;
+                    } catch (\Exception $e) {
+                        $messages[] = $this->getErrorWithPriceListId(
+                            $model,
+                            __('Something went wrong while saving the price list.')
+                        );
+                        $error = true;
+                    }
+                }
+            }
+        }
+
+        return $resultJson->setData([
+            'messages' => $messages,
+            'error' => $error
+        ]);
+    }
+
+    /**
+     * Add price list id to error message
+     *
+     * @param \Orangecat\PricesList\Model\PriceList $priceList
+     * @param string $errorText
+     * @return string
+     */
+    protected function getErrorWithPriceListId($priceList, $errorText)
+    {
+        return '[PriceList ID: ' . $priceList->getId() . '] ' . $errorText;
+    }
+}

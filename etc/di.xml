@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is part of the Orangecat PricesList package.
+ *
+ * (c) Oliverio Gombert <olivertar@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Orangecat\PricesList\Api\Data\PriceListInterface" type="Orangecat\PricesList\Model\PriceList"/>
+    <preference for="Orangecat\PricesList\Api\PriceListRepositoryInterface" type="Orangecat\PricesList\Model\PriceListRepository"/>
+    <preference for="Orangecat\PricesList\Api\Data\PriceListSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+
+    <preference for="Orangecat\PricesList\Api\Data\PriceListItemInterface" type="Orangecat\PricesList\Model\PriceListItem"/>
+    <preference for="Orangecat\PricesList\Api\PriceListItemRepositoryInterface" type="Orangecat\PricesList\Model\PriceListItemRepository"/>
+    <preference for="Orangecat\PricesList\Api\Data\PriceListItemSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+
+    <preference for="Orangecat\PricesList\Api\Data\PriceListCompanyInterface" type="Orangecat\PricesList\Model\PriceListCompany"/>
+    <preference for="Orangecat\PricesList\Api\PriceListManagementInterface" type="Orangecat\PricesList\Model\PriceListManagement"/>
+    <preference for="Orangecat\PricesList\Api\PriceListCompanyManagementInterface" type="Orangecat\PricesList\Model\PriceListCompanyManagement"/>
+
+    <virtualType name="Orangecat\PricesList\Model\ResourceModel\PriceList\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">priceslist</argument>
+            <argument name="resourceModel" xsi:type="string">Orangecat\PricesList\Model\ResourceModel\PriceList</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Orangecat\PricesList\Model\ResourceModel\PriceListItem\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">priceslist_item</argument>
+            <argument name="resourceModel" xsi:type="string">Orangecat\PricesList\Model\ResourceModel\PriceListItem</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Orangecat\PricesList\Model\ResourceModel\PriceListCompany\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">priceslist_company</argument>
+            <argument name="resourceModel" xsi:type="string">Orangecat\PricesList\Model\ResourceModel\PriceListCompany</argument>
+        </arguments>
+    </type>
+
+    <type name="Orangecat\PricesList\Model\PriceList\Item\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Orangecat\PricesList\Model\ResourceModel\PriceListItem\Grid\Collection</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="priceslist_listing_data_source" xsi:type="string">Orangecat\PricesList\Model\ResourceModel\PriceList\Grid\Collection</item>
+                <item name="priceslist_item_listing_data_source" xsi:type="string">Orangecat\PricesList\Model\ResourceModel\PriceListItem\Grid\Collection</item>
+                <item name="priceslist_companies_listing_data_source" xsi:type="string">Orangecat\PricesList\Model\ResourceModel\PriceListCompany\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <!-- Plugin: save price list assignments in Company Save controller -->
+    <type name="Orangecat\Company\Controller\Adminhtml\Company\Save">
+        <plugin name="orangecat_priceslist_save_company_pricelists"
+                type="Orangecat\PricesList\Plugin\Company\Controller\Adminhtml\Company\SavePriceLists"
+                sortOrder="10"/>
+    </type>
+
+    <!-- Inject PricesListCalculator into the Global Prices Orchestrator Pool -->
+    <type name="Orangecat\Prices\Model\CalculatorPool">
+        <arguments>
+            <argument name="calculators" xsi:type="array">
+                <item name="priceslist" xsi:type="object">Orangecat\PricesList\Model\Calculator\PricesListCalculator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\ImportExport\Model\Import\SampleFileProvider">
+        <arguments>
+            <argument name="samples" xsi:type="array">
+                <item name="priceslist_item" xsi:type="string">Orangecat_PricesList</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

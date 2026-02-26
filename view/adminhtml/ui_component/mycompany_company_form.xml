@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * This file is part of the Orangecat PricesList package.
+ *
+ * (c) Oliverio Gombert <olivertar@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="price_lists">
+        <settings>
+            <label translate="true">Price Lists</label>
+        </settings>
+        <!--
+            Renders a Widget\Grid\Extended block (same mechanism as the Company Admin tab).
+            Checkboxes: price_list_ids[{id}]
+            Priority inputs: price_list_priority[{id}]
+            
+            Inputs inside the grid use data-form-part="mycompany_company_form" to bind to this form.
+        -->
+        <htmlContent name="pricelist_grid_block">
+            <block class="Orangecat\PricesList\Block\Adminhtml\Company\Edit\Tab\PriceListGrid"
+                   name="company_pricelist_grid_embed"/>
+        </htmlContent>
+
+    </fieldset>
+</form>

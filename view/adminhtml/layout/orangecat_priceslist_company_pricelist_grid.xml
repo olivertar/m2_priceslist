@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is part of the Orangecat PricesList package.
+ *
+ * (c) Oliverio Gombert <olivertar@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root">
+        <block class="Orangecat\PricesList\Block\Adminhtml\Company\Edit\Tab\PriceListGrid"
+               name="company_pricelist_grid"/>
+    </container>
+</layout>

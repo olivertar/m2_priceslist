@@ -1,0 +1,51 @@
+{
+    "priceslist": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "code": true,
+            "is_active": true,
+            "description": true,
+            "start_date": true,
+            "end_date": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PRICESLIST_CODE": true
+        }
+    },
+    "priceslist_item": {
+        "column": {
+            "item_id": true,
+            "price_list_id": true,
+            "sku": true,
+            "discount_type": true,
+            "amount": true,
+            "qty": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "PRICESLIST_ITEM_SKU": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PRICESLIST_ITEM_PRICE_LIST_ID_PRICESLIST_ENTITY_ID": true
+        }
+    },
+    "priceslist_company": {
+        "column": {
+            "link_id": true,
+            "company_id": true,
+            "price_list_id": true,
+            "priority": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PRICESLIST_COMPANY_COMPANY_ID_MYCOMPANY_ENTITY_ID": true,
+            "PRICESLIST_COMPANY_PRICE_LIST_ID_PRICESLIST_ENTITY_ID": true
+        }
+    }
+}

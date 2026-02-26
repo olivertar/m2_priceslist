@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * This file is part of the Orangecat PricesList package.
+ *
+ * (c) Oliverio Gombert <olivertar@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">priceslist_form.priceslist_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Price List Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save" class="Orangecat\PricesList\Block\Adminhtml\PriceList\Edit\SaveButton"/>
+            <button name="save_and_continue" class="Orangecat\PricesList\Block\Adminhtml\PriceList\Edit\SaveAndContinueButton"/>
+            <button name="delete" class="Orangecat\PricesList\Block\Adminhtml\PriceList\Edit\DeleteButton"/>
+            <button name="back" class="Orangecat\PricesList\Block\Adminhtml\PriceList\Edit\BackButton"/>
+        </buttons>
+        <namespace>priceslist_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>priceslist_form.priceslist_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="priceslist_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="orangecat_priceslist/pricelist/save"/>
+        </settings>
+        <dataProvider class="Orangecat\PricesList\Model\PriceList\DataProvider" name="priceslist_form_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label translate="true">General Information</label>
+        </settings>
+        <field name="entity_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">priceslist</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>entity_id</dataScope>
+            </settings>
+        </field>
+        <field name="is_active" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">priceslist</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Enable Price List</label>
+                <dataScope>is_active</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">priceslist</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Name</label>
+                <dataScope>name</dataScope>
+            </settings>
+        </field>
+        <field name="code" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">priceslist</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Code</label>
+                <dataScope>code</dataScope>
+            </settings>
+        </field>
+        <field name="description" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">priceslist</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Description</label>
+                <dataScope>description</dataScope>
+            </settings>
+        </field>
+        <field name="start_date" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">priceslist</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-date" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Start Date</label>
+                <dataScope>start_date</dataScope>
+            </settings>
+        </field>
+        <field name="end_date" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">priceslist</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-date" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">End Date</label>
+                <dataScope>end_date</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="items">
+        <settings>
+            <label translate="true">List Items</label>
+        </settings>
+        <container name="buttons">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="boolean">false</item>
+                    <item name="formElement" xsi:type="string">container</item>
+                    <item name="componentType" xsi:type="string">container</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/components/button</item>
+                    <item name="title" xsi:type="string" translate="true">Add Products</item>
+                    <item name="actions" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="targetName" xsi:type="string">priceslist_form.priceslist_form.items.modal</item>
+                            <item name="actionName" xsi:type="string">toggleModal</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </container>
+        <insertListing name="priceslist_item_listing">
+            <settings>
+                <dataScope>priceslist_item_listing</dataScope>
+                <ns>priceslist_item_listing</ns>
+                <externalProvider>priceslist_item_listing.priceslist_item_listing_data_source</externalProvider>
+                <selectionsProvider>priceslist_item_listing.priceslist_item_listing.priceslist_item_columns.ids</selectionsProvider>
+                <autoRender>true</autoRender>
+                <exports>
+                    <link name="price_list_id">${ $.externalProvider }:params.price_list_id</link>
+                </exports>
+                <imports>
+                    <link name="price_list_id">${ $.provider }:data.entity_id</link>
+                </imports>
+            </settings>
+        </insertListing>
+        <modal name="modal">
+            <settings>
+                <options>
+                    <option name="title" xsi:type="string" translate="true">Select Products to Add</option>
+                    <option name="buttons" xsi:type="array">
+                        <item name="0" xsi:type="array">
+                            <item name="text" xsi:type="string" translate="true">Cancel</item>
+                            <item name="class" xsi:type="string">action-secondary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="array">
+                                    <item name="targetName" xsi:type="string">${ $.name }</item>
+                                    <item name="actionName" xsi:type="string">actionCancel</item>
+                                </item>
+                            </item>
+                        </item>
+                        <item name="1" xsi:type="array">
+                            <item name="text" xsi:type="string" translate="true">Add Selected Products</item>
+                            <item name="class" xsi:type="string">action-primary</item>
+                            <item name="actions" xsi:type="array">
+                                <item name="0" xsi:type="array">
+                                    <item name="targetName" xsi:type="string">priceslist_form.priceslist_form.items.add_products_btn</item>
+                                    <item name="actionName" xsi:type="string">action</item>
+                                </item>
+                            </item>
+                        </item>
+                    </option>
+                </options>
+            </settings>
+            <insertListing name="product_listing">
+                <settings>
+                    <dataScope>product_listing</dataScope>
+                    <ns>product_listing</ns>
+                    <externalProvider>product_listing.product_listing_data_source</externalProvider>
+                    <selectionsProvider>product_listing.product_listing.product_columns.ids</selectionsProvider>
+                    <autoRender>true</autoRender>
+                    <links>
+                        <link name="price_list_id">priceslist_form.priceslist_form_data_source:data.entity_id</link>
+                    </links>
+                    <exports>
+                        <link name="selected">${ $.externalProvider }:params.selected</link>
+                        <link name="price_list_id">${ $.externalProvider }:params.price_list_id</link>
+                    </exports>
+                </settings>
+            </insertListing>
+        </modal>
+        <container name="add_products_btn">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="boolean">false</item>
+                    <item name="formElement" xsi:type="string">container</item>
+                    <item name="componentType" xsi:type="string">container</item>
+                    <item name="component" xsi:type="string">Orangecat_PricesList/js/add-products</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="addUrl" xsi:type="url" path="orangecat_priceslist/pricelist_item/add"/>
+                    <item name="getProductsUrl" xsi:type="url" path="orangecat_priceslist/pricelist_item/getProducts"/>
+                </item>
+            </argument>
+        </container>
+    </fieldset>
+    <fieldset name="companies">
+        <settings>
+            <label translate="true">Companies Using This Price List</label>
+        </settings>
+        <insertListing name="priceslist_companies_listing">
+            <settings>
+                <dataScope>priceslist_companies_listing</dataScope>
+                <ns>priceslist_companies_listing</ns>
+                <externalProvider>priceslist_companies_listing.priceslist_companies_listing_data_source</externalProvider>
+                <selectionsProvider>priceslist_companies_listing.priceslist_companies_listing.priceslist_companies_columns.ids</selectionsProvider>
+                <autoRender>true</autoRender>
+                <exports>
+                    <link name="price_list_id">${ $.externalProvider }:params.price_list_id</link>
+                </exports>
+                <imports>
+                    <link name="price_list_id">${ $.provider }:data.entity_id</link>
+                </imports>
+            </settings>
+        </insertListing>
+    </fieldset>
+</form>

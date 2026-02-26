@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is part of the Orangecat PricesList package.
+ *
+ * (c) Oliverio Gombert <olivertar@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_ImportExport:etc/import.xsd">
+    <entity name="priceslist_item" label="Price List Items" model="Orangecat\PricesList\Model\Import\PricesListItem" behaviorModel="Magento\ImportExport\Model\Source\Import\Behavior\Basic" />
+</config>

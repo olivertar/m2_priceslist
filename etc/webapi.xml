@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is part of the Orangecat PricesList package.
+ *
+ * (c) Oliverio Gombert <olivertar@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <!-- PriceList Repository Routes -->
+    <route url="/V1/priceslist" method="POST">
+        <service class="Orangecat\PricesList\Api\PriceListRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+    <route url="/V1/priceslist/:entityId" method="GET">
+        <service class="Orangecat\PricesList\Api\PriceListRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+    <route url="/V1/priceslist/:entityId" method="PUT">
+        <service class="Orangecat\PricesList\Api\PriceListRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+    <route url="/V1/priceslist/:entityId" method="DELETE">
+        <service class="Orangecat\PricesList\Api\PriceListRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+    <route url="/V1/priceslist/search" method="GET">
+        <service class="Orangecat\PricesList\Api\PriceListRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+
+    <!-- Custom Code-based Routes -->
+    <route url="/V1/priceslist/code/:code" method="GET">
+        <service class="Orangecat\PricesList\Api\PriceListRepositoryInterface" method="getByCode"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+    <route url="/V1/priceslist/code/:code" method="DELETE">
+        <service class="Orangecat\PricesList\Api\PriceListRepositoryInterface" method="deleteByCode"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+
+    <!-- Price Management Routes -->
+    <route url="/V1/priceslist/:priceListCode/prices" method="GET">
+        <service class="Orangecat\PricesList\Api\PriceListManagementInterface" method="getPrices"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+    <route url="/V1/priceslist/:priceListCode/prices" method="POST">
+        <service class="Orangecat\PricesList\Api\PriceListManagementInterface" method="addPrices"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+    <route url="/V1/priceslist/:priceListCode/prices/remove" method="POST">
+        <service class="Orangecat\PricesList\Api\PriceListManagementInterface" method="removePrices"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+
+    <!-- Company Association Routes -->
+    <route url="/V1/priceslist/:priceListCode/companies" method="GET">
+        <service class="Orangecat\PricesList\Api\PriceListCompanyManagementInterface" method="getCompanies"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+    <route url="/V1/priceslist/:priceListCode/companies" method="POST">
+        <service class="Orangecat\PricesList\Api\PriceListCompanyManagementInterface" method="associate"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+    <route url="/V1/priceslist/:priceListCode/companies/:companyId" method="DELETE">
+        <service class="Orangecat\PricesList\Api\PriceListCompanyManagementInterface" method="removeAssociation"/>
+        <resources>
+            <resource ref="Orangecat_PricesList::priceslist"/>
+        </resources>
+    </route>
+
+</routes>

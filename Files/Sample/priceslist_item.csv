@@ -1,0 +1,5 @@
+price_list_code,sku,qty,discount_type,amount
+B2B-WHOLESALE,24-MB01,1,percentage,15
+B2B-WHOLESALE,24-MB01,10,percentage,25
+B2B-PREMIUM,24-MB01,1,fixed_price,25.99
+B2B-PREMIUM,24-MB04,1,fixed_amount,5

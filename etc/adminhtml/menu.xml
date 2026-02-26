@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is part of the Orangecat PricesList package.
+ *
+ * (c) Oliverio Gombert <olivertar@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/menu.xsd">
+    <menu>
+        <add id="Orangecat_PricesList::priceslist_list" title="Manage Price Lists" module="Orangecat_PricesList" sortOrder="10" parent="Orangecat_Prices::base" action="orangecat_priceslist/pricelist/index" resource="Orangecat_PricesList::priceslist"/>
+    </menu>
+</config>

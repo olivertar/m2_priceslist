@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is part of the Orangecat PricesList package.
+ *
+ * (c) Oliverio Gombert <olivertar@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="priceslist" resource="default" engine="innodb" comment="Price Lists Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="name" length="255" nullable="false" comment="Price List Name"/>
+        <column xsi:type="varchar" name="code" length="255" nullable="false" comment="Unique Code"/>
+        <column xsi:type="boolean" name="is_active" nullable="false" default="1" comment="Is Active"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+        <column xsi:type="timestamp" name="start_date" nullable="true" comment="Start Date"/>
+        <column xsi:type="timestamp" name="end_date" nullable="true" comment="End Date"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="PRICESLIST_CODE_UNIQUE">
+            <column name="code"/>
+        </constraint>
+    </table>
+
+    <table name="priceslist_item" resource="default" engine="innodb" comment="Price List Items">
+        <column xsi:type="int" name="item_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Item ID"/>
+        <column xsi:type="int" name="price_list_id" padding="10" unsigned="true" nullable="false" comment="Price List ID"/>
+        <column xsi:type="varchar" name="sku" length="64" nullable="false" comment="Product SKU"/>
+        <column xsi:type="varchar" name="discount_type" length="32" nullable="true" comment="Discount Type"/>
+        <column xsi:type="decimal" name="amount" scale="4" precision="20" nullable="true" comment="Discount Amount"/>
+        <column xsi:type="decimal" name="qty" scale="4" precision="12" nullable="false" default="1.0000" comment="Min Qty"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="item_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PRICESLIST_ITEM_PRICELIST_ID" table="priceslist_item" column="price_list_id" referenceTable="priceslist" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="PRICESLIST_ITEM_SKU_INDEX" indexType="btree">
+            <column name="sku"/>
+        </index>
+    </table>
+
+    <table name="priceslist_company" resource="default" engine="innodb" comment="Price List Company Link">
+        <column xsi:type="int" name="link_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Link ID"/>
+        <column xsi:type="int" name="company_id" padding="10" unsigned="true" nullable="false" comment="Company ID"/>
+        <column xsi:type="int" name="price_list_id" padding="10" unsigned="true" nullable="false" comment="Price List ID"/>
+        <column xsi:type="int" name="priority" padding="10" unsigned="true" nullable="false" default="0" comment="Priority"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="link_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PRICESLIST_COMP_COMP_ID_MYCOMP_ENT_ID" table="priceslist_company" column="company_id" referenceTable="mycompany" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="PRICESLIST_COMP_PL_ID_PRICESLIST_ENT_ID" table="priceslist_company" column="price_list_id" referenceTable="priceslist" referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+</schema>
