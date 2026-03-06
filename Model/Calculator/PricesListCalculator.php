@@ -118,4 +118,98 @@ class PricesListCalculator implements PriceCalculatorInterface
 
         return $finalPrice;
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getTiers(string $sku, int $companyId, float $basePrice = 0.0): array
+    {
+        if (!$this->config->isEnabled()) {
+            return [];
+        }
+
+        $listsCollection = $this->companyCollectionFactory->create()
+            ->addFieldToFilter('company_id', $companyId)
+            ->setOrder('priority', 'DESC');
+
+        if ($listsCollection->getSize() === 0) {
+            return [];
+        }
+
+        $priceListIds = $listsCollection->getColumnValues('price_list_id');
+        $resolutionMode = $this->config->getResolutionMode();
+
+        $itemsCollection = $this->itemCollectionFactory->create()
+            ->addFieldToFilter('price_list_id', ['in' => $priceListIds])
+            ->addFieldToFilter('sku', $sku);
+
+        if ($itemsCollection->getSize() === 0) {
+            return [];
+        }
+
+        // We group items by their price_list_id
+        $itemsByListId = [];
+        foreach ($itemsCollection as $item) {
+            $listId = (int)$item->getPriceListId();
+            if (!isset($itemsByListId[$listId])) {
+                $itemsByListId[$listId] = [];
+            }
+            $itemsByListId[$listId][] = $item;
+        }
+
+        $allTiers = [];
+
+        foreach ($priceListIds as $listId) {
+            if (!isset($itemsByListId[(int)$listId])) {
+                continue;
+            }
+
+            foreach ($itemsByListId[(int)$listId] as $listPriceItem) {
+                $qty = (float)$listPriceItem->getQty();
+                if ($qty <= 1.0) continue;
+
+                $amount = (float)$listPriceItem->getAmount();
+                $discountType = $listPriceItem->getDiscountType();
+                $currentPrice = null;
+
+                if ($discountType === 'fixed_price') {
+                    $currentPrice = $amount;
+                } elseif ($discountType === 'percent' || $discountType === 'percentage') {
+                    $currentPrice = $basePrice - ($basePrice * ($amount / 100));
+                } elseif ($discountType === 'discount' || $discountType === 'fixed_discount') {
+                    $currentPrice = $basePrice - $amount;
+                } else {
+                    continue;
+                }
+
+                $currentPrice = max(0, $currentPrice);
+
+                if (!isset($allTiers[(string)$qty])) {
+                    $allTiers[(string)$qty] = $currentPrice;
+                } else {
+                    if ($resolutionMode === Mode::MODE_WEIGHT) {
+                        if ($currentPrice < $allTiers[(string)$qty]) {
+                            $allTiers[(string)$qty] = $currentPrice;
+                        }
+                    }
+                    // If Mode::MODE_CASCADE, the first list (highest priority) wins, so we do NOT overwrite
+                }
+            }
+        }
+
+        $tiers = [];
+        foreach ($allTiers as $qtyStr => $price) {
+            $tiers[] = [
+                'qty' => (float)$qtyStr,
+                'price' => $price
+            ];
+        }
+
+        // Sort by qty ascending
+        usort($tiers, function ($a, $b) {
+            return $a['qty'] <=> $b['qty'];
+        });
+
+        return $tiers;
+    }
 }
