@@ -41,10 +41,12 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="item_id"/>
         </constraint>
-        <constraint xsi:type="foreign" referenceId="PRICESLIST_ITEM_PRICELIST_ID" table="priceslist_item" column="price_list_id" referenceTable="priceslist" referenceColumn="entity_id" onDelete="CASCADE"/>
-        <index referenceId="PRICESLIST_ITEM_SKU_INDEX" indexType="btree">
+        <constraint xsi:type="unique" referenceId="PRICESLIST_ITEM_PL_ID_SKU_QTY">
+            <column name="price_list_id"/>
             <column name="sku"/>
-        </index>
+            <column name="qty"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PRICESLIST_ITEM_PRICELIST_ID" table="priceslist_item" column="price_list_id" referenceTable="priceslist" referenceColumn="entity_id" onDelete="CASCADE"/>
     </table>
 
     <table name="priceslist_company" resource="default" engine="innodb" comment="Price List Company Link">
@@ -55,6 +57,10 @@
 
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="link_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="PRICESLIST_COMP_COMP_ID_PL_ID">
+            <column name="company_id"/>
+            <column name="price_list_id"/>
         </constraint>
         <constraint xsi:type="foreign" referenceId="PRICESLIST_COMP_COMP_ID_MYCOMP_ENT_ID" table="priceslist_company" column="company_id" referenceTable="mycompany" referenceColumn="entity_id" onDelete="CASCADE"/>
         <constraint xsi:type="foreign" referenceId="PRICESLIST_COMP_PL_ID_PRICESLIST_ENT_ID" table="priceslist_company" column="price_list_id" referenceTable="priceslist" referenceColumn="entity_id" onDelete="CASCADE"/>

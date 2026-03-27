@@ -32,7 +32,8 @@
         },
         "constraint": {
             "PRIMARY": true,
-            "PRICESLIST_ITEM_PRICE_LIST_ID_PRICESLIST_ENTITY_ID": true
+            "PRICESLIST_ITEM_PRICE_LIST_ID_PRICESLIST_ENTITY_ID": true,
+            "PRICESLIST_ITEM_PRICE_LIST_ID_SKU_QTY": true
         }
     },
     "priceslist_company": {
@@ -45,7 +46,8 @@
         "constraint": {
             "PRIMARY": true,
             "PRICESLIST_COMPANY_COMPANY_ID_MYCOMPANY_ENTITY_ID": true,
-            "PRICESLIST_COMPANY_PRICE_LIST_ID_PRICESLIST_ENTITY_ID": true
+            "PRICESLIST_COMPANY_PRICE_LIST_ID_PRICESLIST_ENTITY_ID": true,
+            "PRICESLIST_COMPANY_COMPANY_ID_PRICE_LIST_ID": true
         }
     }
 }

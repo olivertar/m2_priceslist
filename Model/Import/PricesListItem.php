@@ -57,6 +57,11 @@ class PricesListItem extends AbstractEntity
      */
     private $skuCache = [];
 
+    /**
+     * @var \Magento\Framework\Json\Helper\Data
+     */
+    private $jsonHelper;
+
     public function __construct(
         \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Magento\ImportExport\Helper\Data $importExportData,
