@@ -60,7 +60,7 @@ class PricesListItem extends AbstractEntity
     /**
      * @var \Magento\Framework\Json\Helper\Data
      */
-    private $jsonHelper;
+    protected $jsonHelper;
 
     public function __construct(
         \Magento\Framework\Json\Helper\Data $jsonHelper,
