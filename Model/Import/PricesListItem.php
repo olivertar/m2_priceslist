@@ -79,7 +79,7 @@ class PricesListItem extends AbstractEntity
      * @param ProductRepositoryInterface $productRepository
      */
     public function __construct(
-        protected \Magento\Framework\Json\Helper\Data $jsonHelper,
+        \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Magento\ImportExport\Helper\Data $importExportData,
         \Magento\ImportExport\Model\ResourceModel\Import\Data $importData,
         ResourceConnection $resource,
@@ -88,6 +88,7 @@ class PricesListItem extends AbstractEntity
         ProcessingErrorAggregatorInterface $errorAggregator,
         private ProductRepositoryInterface $productRepository
     ) {
+        $this->jsonHelper = $jsonHelper;
         $this->_importExportData = $importExportData;
         $this->_resourceHelper = $resourceHelper;
         $this->_dataSourceModel = $importData;
