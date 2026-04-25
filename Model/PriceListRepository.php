@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Orangecat\PricesList\Model;
 
 use Orangecat\PricesList\Api\PriceListRepositoryInterface;
@@ -37,7 +39,8 @@ class PriceListRepository implements PriceListRepositoryInterface
         private readonly PriceListCollectionFactory $priceListCollectionFactory,
         private readonly PriceListSearchResultsInterfaceFactory $searchResultsFactory,
         private readonly CollectionProcessorInterface $collectionProcessor
-    ) {}
+    ) {
+    }
 
     /**
      * @inheritDoc

@@ -31,8 +31,14 @@ class PricesListItem extends AbstractEntity
     public const TABLE_PRICELIST = 'priceslist';
     public const TABLE_ENTITY = 'priceslist_item';
 
+    /**
+     * @var bool
+     */
     protected $needColumnCheck = true;
 
+    /**
+     * @var array
+     */
     protected $validColumnNames = [
         self::PRICE_LIST_CODE,
         self::SKU,
@@ -41,10 +47,15 @@ class PricesListItem extends AbstractEntity
         self::AMOUNT
     ];
 
+    /**
+     * @var string
+     */
     protected $masterAttributeCode = self::PRICE_LIST_CODE;
 
+    /**
+     * @var \Magento\Framework\DB\Adapter\AdapterInterface
+     */
     private $connection;
-    private $productRepository;
 
     /**
      * Cache for mapping price_list_code to entity_id to minimize DB queries
@@ -58,39 +69,57 @@ class PricesListItem extends AbstractEntity
     private $skuCache = [];
 
     /**
-     * @var \Magento\Framework\Json\Helper\Data
+     * @param \Magento\Framework\Json\Helper\Data $jsonHelper
+     * @param \Magento\ImportExport\Helper\Data $importExportData
+     * @param \Magento\ImportExport\Model\ResourceModel\Import\Data $importData
+     * @param ResourceConnection $resource
+     * @param \Magento\ImportExport\Model\ResourceModel\Helper $resourceHelper
+     * @param \Magento\Framework\Stdlib\StringUtils $string
+     * @param ProcessingErrorAggregatorInterface $errorAggregator
+     * @param ProductRepositoryInterface $productRepository
      */
-    protected $jsonHelper;
-
     public function __construct(
-        \Magento\Framework\Json\Helper\Data $jsonHelper,
+        protected \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Magento\ImportExport\Helper\Data $importExportData,
         \Magento\ImportExport\Model\ResourceModel\Import\Data $importData,
         ResourceConnection $resource,
         \Magento\ImportExport\Model\ResourceModel\Helper $resourceHelper,
         \Magento\Framework\Stdlib\StringUtils $string,
         ProcessingErrorAggregatorInterface $errorAggregator,
-        ProductRepositoryInterface $productRepository
+        private ProductRepositoryInterface $productRepository
     ) {
-        $this->jsonHelper = $jsonHelper;
         $this->_importExportData = $importExportData;
         $this->_resourceHelper = $resourceHelper;
         $this->_dataSourceModel = $importData;
         $this->errorAggregator = $errorAggregator;
         $this->connection = $resource->getConnection();
-        $this->productRepository = $productRepository;
     }
 
+    /**
+     * Get valid column names
+     *
+     * @return array
+     */
     public function getValidColumnNames()
     {
         return $this->validColumnNames;
     }
 
+    /**
+     * Get entity type code
+     *
+     * @return string
+     */
     public function getEntityTypeCode()
     {
         return 'priceslist_item';
     }
 
+    /**
+     * Import data
+     *
+     * @return bool
+     */
     protected function _importData()
     {
         if (Import::BEHAVIOR_DELETE == $this->getBehavior()) {
@@ -106,6 +135,7 @@ class PricesListItem extends AbstractEntity
 
     /**
      * Retrieves the Price List ID from its Code.
+     *
      * Caches the result to avoid multiple queries for the same code.
      *
      * @param string $code
@@ -130,6 +160,13 @@ class PricesListItem extends AbstractEntity
         return $this->priceListCache[$code];
     }
 
+    /**
+     * Validate row
+     *
+     * @param array $rowData
+     * @param int $rowNum
+     * @return bool
+     */
     public function validateRow(array $rowData, $rowNum)
     {
         if (isset($this->_validatedRows[$rowNum])) {
@@ -194,18 +231,33 @@ class PricesListItem extends AbstractEntity
         return !$this->getErrorAggregator()->isRowInvalid($rowNum);
     }
 
+    /**
+     * Save entity
+     *
+     * @return $this
+     */
     protected function saveEntity()
     {
         $this->saveAndReplaceEntity();
         return $this;
     }
 
+    /**
+     * Replace entity
+     *
+     * @return $this
+     */
     protected function replaceEntity()
     {
         $this->saveAndReplaceEntity();
         return $this;
     }
 
+    /**
+     * Save and replace entity
+     *
+     * @return void
+     */
     private function saveAndReplaceEntity()
     {
         $behavior = $this->getBehavior();
@@ -245,7 +297,7 @@ class PricesListItem extends AbstractEntity
             if (!empty($listData)) {
                 $tableName = $this->connection->getTableName(self::TABLE_ENTITY);
                 // In Magento, insertOnDuplicate takes the unique columns.
-                // Our unique index/constraint is usually handled by the ORM, but natively this module DB schema 
+                // Our unique index/constraint is usually handled by the ORM, but natively this module DB schema
                 // might not have a composite unique key for (price_list_id, sku, qty).
                 // Let's assume the combination of price_list_id, sku, qty should be unique per tier logic.
                 $this->connection->insertOnDuplicate($tableName, $listData, [
@@ -265,6 +317,11 @@ class PricesListItem extends AbstractEntity
         }
     }
 
+    /**
+     * Delete entity
+     *
+     * @return $this
+     */
     protected function deleteEntity()
     {
         $listData = [];

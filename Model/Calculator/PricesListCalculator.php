@@ -33,7 +33,8 @@ class PricesListCalculator implements PriceCalculatorInterface
         private readonly Config $config,
         private readonly CompanyCollectionFactory $companyCollectionFactory,
         private readonly ItemCollectionFactory $itemCollectionFactory
-    ) {}
+    ) {
+    }
 
     /**
      * @inheritdoc
@@ -166,7 +167,9 @@ class PricesListCalculator implements PriceCalculatorInterface
 
             foreach ($itemsByListId[(int)$listId] as $listPriceItem) {
                 $qty = (float)$listPriceItem->getQty();
-                if ($qty <= 1.0) continue;
+                if ($qty <= 1.0) {
+                    continue;
+                }
 
                 $amount = (float)$listPriceItem->getAmount();
                 $discountType = $listPriceItem->getDiscountType();

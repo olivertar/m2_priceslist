@@ -18,6 +18,8 @@ use Magento\Framework\Validator\AbstractValidator;
 class Validator extends AbstractValidator
 {
     /**
+     * Validator for imported item.
+     *
      * @param array $value
      * @return bool
      */
