@@ -1,17 +1,40 @@
 {
-    "name": "orangecat/module-priceslist",
-    "description": "Orangecat PricesList Module",
-    "require": {
-        "php": "~8.1.0||~8.2.0||~8.3.0",
-        "magento/framework": "103.0.*|104.0.*",
-        "orangecat/module-company": "*",
-        "orangecat/module-prices": "*"
-    },
+    "name": "orangecat/module-prices-list",
+    "description": "Customer-specific B2B price lists with volume tiers, multi-list resolution, and import support for Magento 2",
     "type": "magento2-module",
-    "version": "1.0.0",
     "license": [
         "OSL-3.0"
     ],
+    "authors": [
+        {
+            "name": "Oliverio Gombert",
+            "email": "olivertar@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "keywords": [
+        "magento2",
+        "b2b",
+        "prices",
+        "pricelist",
+        "orangecat"
+    ],
+    "require": {
+        "php": ">=8.1",
+        "magento/framework": "*",
+        "magento/module-backend": "*",
+        "magento/module-catalog": "*",
+        "magento/module-config": "*",
+        "magento/module-import-export": "*",
+        "magento/module-store": "*",
+        "magento/module-ui": "*",
+        "orangecat/core": "*",
+        "orangecat/module-company": "*",
+        "orangecat/module-prices": "*"
+    },
+    "suggest": {
+        "orangecat/module-prices-company": "Links price lists to companies via a dedicated bridge module"
+    },
     "autoload": {
         "files": [
             "registration.php"
