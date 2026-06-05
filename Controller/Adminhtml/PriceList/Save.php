@@ -18,6 +18,7 @@ use Magento\Backend\Model\Session as BackendSession;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\Data\Form\FormKey\Validator as FormKeyValidator;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Registry;
 use Orangecat\PricesList\Controller\Adminhtml\PriceList;
@@ -25,9 +26,14 @@ use Orangecat\PricesList\Model\Config\Source\DiscountType;
 use Orangecat\PricesList\Model\PriceListFactory;
 use Orangecat\PricesList\Model\PriceListItemFactory;
 use Orangecat\PricesList\Model\PriceListItemRepository;
+use Psr\Log\LoggerInterface;
 
 class Save extends PriceList
 {
+    private const ALLOWED_FIELDS = [
+        'name', 'code', 'is_active', 'description', 'start_date', 'end_date',
+    ];
+
     /**
      * @param Context $context
      * @param Registry $coreRegistry
@@ -36,6 +42,8 @@ class Save extends PriceList
      * @param PriceListItemRepository $itemRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param BackendSession $backendSession
+     * @param FormKeyValidator $formKeyValidator
+     * @param LoggerInterface $logger
      */
     public function __construct(
         Context $context,
@@ -44,7 +52,9 @@ class Save extends PriceList
         private readonly PriceListItemFactory $itemFactory,
         private readonly PriceListItemRepository $itemRepository,
         private readonly SearchCriteriaBuilder $searchCriteriaBuilder,
-        private readonly BackendSession $backendSession
+        private readonly BackendSession $backendSession,
+        private readonly FormKeyValidator $formKeyValidator,
+        private readonly LoggerInterface $logger
     ) {
         parent::__construct($context, $coreRegistry);
     }
@@ -56,6 +66,12 @@ class Save extends PriceList
     {
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+
+        if (!$this->formKeyValidator->validate($this->getRequest())) {
+            $this->messageManager->addErrorMessage(__('Invalid form key. Please refresh the page.'));
+            return $resultRedirect->setPath('*/*/');
+        }
+
         $data = $this->getRequest()->getPostValue();
 
         if (!$data) {
@@ -73,10 +89,8 @@ class Save extends PriceList
             }
         }
 
-        if (isset($data['entity_id']) && empty($data['entity_id'])) {
-            unset($data['entity_id']);
-        }
-        $model->setData($data);
+        $filtered = array_intersect_key($data, array_flip(self::ALLOWED_FIELDS));
+        $model->addData($filtered);
 
         try {
             $model->save();
@@ -96,7 +110,8 @@ class Save extends PriceList
         } catch (LocalizedException $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
         } catch (\Exception $e) {
-            $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the price list.'));
+            $this->logger->error('PricesList save failed: ' . $e->getMessage());
+            $this->messageManager->addErrorMessage(__('Something went wrong while saving the price list.'));
         }
 
         $this->backendSession->setFormData($data);

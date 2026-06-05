@@ -24,7 +24,7 @@ class MassDelete extends Action
     /**
      * Authorization level of a basic admin session
      */
-    public const ADMIN_RESOURCE = 'Orangecat_PricesList::prices_list';
+    public const ADMIN_RESOURCE = 'Orangecat_PricesList::priceslist_delete';
 
     /**
      * @param Context $context

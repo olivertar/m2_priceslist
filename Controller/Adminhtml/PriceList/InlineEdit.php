@@ -51,11 +51,12 @@ class InlineEdit extends Action
                 $messages[] = __('Please correct the data sent.');
                 $error = true;
             } else {
+                $allowedFields = ['name', 'code', 'is_active', 'description', 'start_date', 'end_date'];
                 foreach (array_keys($postItems) as $id) {
                     /** @var \Orangecat\PricesList\Model\PriceList $model */
                     $model = $this->_objectManager->create(\Orangecat\PricesList\Model\PriceList::class)->load($id);
                     try {
-                        $model->addData($postItems[$id]);
+                        $model->addData(array_intersect_key($postItems[$id], array_flip($allowedFields)));
                         $model->save();
                     } catch (LocalizedException $e) {
                         $messages[] = $this->getErrorWithPriceListId($model, $e->getMessage());

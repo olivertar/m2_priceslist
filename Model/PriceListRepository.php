@@ -116,6 +116,9 @@ class PriceListRepository implements PriceListRepositoryInterface
      */
     public function getByCode($code)
     {
+        if (!is_string($code) || trim($code) === '' || strlen($code) > 255) {
+            throw new NoSuchEntityException(__('Invalid price list code.'));
+        }
         $priceList = $this->priceListFactory->create();
         $this->resource->load($priceList, $code, PriceListInterface::CODE);
         if (!$priceList->getId()) {

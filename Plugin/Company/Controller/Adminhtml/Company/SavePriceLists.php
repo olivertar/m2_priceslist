@@ -80,8 +80,21 @@ class SavePriceLists
             ? $postData['price_list_priority']
             : [];
 
-        $connection = $this->resourceConnection->getConnection();
-        $table      = $this->resourceConnection->getTableName('priceslist_company');
+        $connection    = $this->resourceConnection->getConnection();
+        $table         = $this->resourceConnection->getTableName('priceslist_company');
+        $companyTable  = $this->resourceConnection->getTableName('mycompany');
+
+        $companyExists = (int)$connection->fetchOne(
+            $connection->select()->from($companyTable, ['entity_id'])->where('entity_id = ?', $companyId)
+        );
+
+        if (!$companyExists) {
+            $this->logger->warning(
+                'PricesList: company_id not found, skipping price list assignment.',
+                ['company_id' => $companyId]
+            );
+            return $result;
+        }
 
         $connection->beginTransaction();
         try {

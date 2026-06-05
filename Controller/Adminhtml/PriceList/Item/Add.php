@@ -66,14 +66,20 @@ class Add extends Action
         }
 
         // Build a map of product data from the `products` param if present
+        $validDiscountTypes = [DiscountType::FIXED_PRICE, DiscountType::FIXED_AMOUNT, DiscountType::PERCENTAGE];
         $productDataMap = [];
         if (!empty($productsParam) && is_array($productsParam)) {
             foreach ($productsParam as $productEntry) {
                 if (!empty($productEntry['sku'])) {
+                    $discountType = $productEntry['discount_type'] ?? DiscountType::FIXED_PRICE;
+                    if (!in_array($discountType, $validDiscountTypes, true)) {
+                        $discountType = DiscountType::FIXED_PRICE;
+                    }
+                    $amount = isset($productEntry['amount']) ? (float)$productEntry['amount'] : 0;
                     $productDataMap[$productEntry['sku']] = [
-                        'discount_type' => $productEntry['discount_type'] ?? DiscountType::FIXED_PRICE,
-                        'amount'        => isset($productEntry['amount']) ? (float)$productEntry['amount'] : 0,
-                        'qty'           => isset($productEntry['qty']) ? (float)$productEntry['qty'] : 1.0,
+                        'discount_type' => $discountType,
+                        'amount'        => max(0.0, $amount),
+                        'qty'           => isset($productEntry['qty']) ? max(0.0, (float)$productEntry['qty']) : 1.0,
                     ];
                 }
             }
