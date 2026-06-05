@@ -1,0 +1,67 @@
+"%1 items added","%1 artículos agregados"
+Active,Activo
+"Are you sure you want to delete ""%1""?","¿Está seguro de que desea eliminar ""%1""?"
+"Are you sure you want to remove this item?","¿Está seguro de que desea quitar este artículo?"
+"Are you sure you want to remove this price list from the company?","¿Está seguro de que desea quitar esta lista de precios de la empresa?"
+"A total of %1 record(s) have been deleted","Se eliminaron %1 registro(s) en total"
+Back,Volver
+Cascade,Cascada
+Code,Código
+Delete,Eliminar
+"Delete ""%1""","Eliminar ""%1"""
+"Delete Item","Eliminar Artículo"
+"Delete Price List","Eliminar Lista de Precios"
+Edit,Editar
+"Edit Company","Editar Empresa"
+"Edit Price List","Editar Lista de Precios"
+"Fixed Amount Discount","Descuento de Monto Fijo"
+"Fixed Price Override","Precio Fijo Preferente"
+ID,ID
+Inactive,Inactivo
+"Invalid form key. Please refresh the page","Clave de formulario inválida. Por favor, recargue la página"
+"Invalid price list code","Código de lista de precios inválido"
+"Manage Price Lists","Gestionar Listas de Precios"
+"New Price List","Nueva Lista de Precios"
+"No items selected","No hay artículos seleccionados"
+"Percentage Discount","Descuento por Porcentaje"
+"Please correct the data sent","Por favor, corrija los datos enviados"
+"Price List ID is missing","Falta el ID de la lista de precios"
+"Price List Item with id ""%1"" does not exist","El artículo de lista de precios con id ""%1"" no existe"
+"Price List Name","Nombre de la Lista de Precios"
+"Price Lists","Listas de Precios"
+"Price List with code ""%1"" does not exist","La lista de precios con código ""%1"" no existe"
+"Price List with id ""%1"" does not exist","La lista de precios con id ""%1"" no existe"
+Priority,Prioridad
+Remove,Quitar
+"Remove Price List","Quitar Lista de Precios"
+"Save and Continue Edit","Guardar y Continuar Editando"
+"Save Price List","Guardar Lista de Precios"
+"Something went wrong while saving the item","Algo salió mal al guardar el artículo"
+"Something went wrong while saving the price list","Algo salió mal al guardar la lista de precios"
+Status,Estado
+"This price list no longer exists","Esta lista de precios ya no existe"
+Weight,Peso
+"You deleted the item","Ha eliminado el artículo"
+"You deleted the price list","Ha eliminado la lista de precios"
+"You saved the price list","Ha guardado la lista de precios"
+"Choose how the discounts will be applied","Elija cómo se aplicarán los descuentos"
+"Choose how the discounts will be applied.","Elija cómo se aplicarán los descuentos."
+"Enable or disable the custom B2B Price Lists functionality.","Habilitar o deshabilitar la funcionalidad de Listas de Precios B2B personalizadas."
+"Enable Price Lists","Habilitar Listas de Precios"
+"Price Lists Configuration","Configuración de Listas de Precios"
+"Resolution Mode","Modo de Resolución"
+Add,Agregar
+Amount,Monto
+Cancel,Cancelar
+"Confirm & Add","Confirmar y Agregar"
+"Could not load product details","No se pudieron cargar los detalles del producto"
+"Discount Type","Tipo de Descuento"
+"Please save the Price List first before adding products","Por favor, guarde la Lista de Precios antes de agregar productos"
+"Please select at least one product","Por favor, seleccione al menos un producto"
+Product,Producto
+Qty,Cantidad
+"Set Pricing for Selected Products","Establecer Precios para los Productos Seleccionados"
+SKU,SKU
+"Add New Price List","Agregar nueva lista de precios"
+"List Items","Lista de productos"
+"Companies Using This Price List","Empresas que utilizan esta lista de precios"

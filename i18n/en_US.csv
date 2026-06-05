@@ -1,0 +1,67 @@
+"%1 items added","%1 items added"
+Active,Active
+"Are you sure you want to delete ""%1""?","Are you sure you want to delete ""%1""?"
+"Are you sure you want to remove this item?","Are you sure you want to remove this item?"
+"Are you sure you want to remove this price list from the company?","Are you sure you want to remove this price list from the company?"
+"A total of %1 record(s) have been deleted","A total of %1 record(s) have been deleted"
+Back,Back
+Cascade,Cascade
+Code,Code
+Delete,Delete
+"Delete ""%1""","Delete ""%1"""
+"Delete Item","Delete Item"
+"Delete Price List","Delete Price List"
+Edit,Edit
+"Edit Company","Edit Company"
+"Edit Price List","Edit Price List"
+"Fixed Amount Discount","Fixed Amount Discount"
+"Fixed Price Override","Fixed Price Override"
+ID,ID
+Inactive,Inactive
+"Invalid form key. Please refresh the page","Invalid form key. Please refresh the page"
+"Invalid price list code","Invalid price list code"
+"Manage Price Lists","Manage Price Lists"
+"New Price List","New Price List"
+"No items selected","No items selected"
+"Percentage Discount","Percentage Discount"
+"Please correct the data sent","Please correct the data sent"
+"Price List ID is missing","Price List ID is missing"
+"Price List Item with id ""%1"" does not exist","Price List Item with id ""%1"" does not exist"
+"Price List Name","Price List Name"
+"Price Lists","Price Lists"
+"Price List with code ""%1"" does not exist","Price List with code ""%1"" does not exist"
+"Price List with id ""%1"" does not exist","Price List with id ""%1"" does not exist"
+Priority,Priority
+Remove,Remove
+"Remove Price List","Remove Price List"
+"Save and Continue Edit","Save and Continue Edit"
+"Save Price List","Save Price List"
+"Something went wrong while saving the item","Something went wrong while saving the item"
+"Something went wrong while saving the price list","Something went wrong while saving the price list"
+Status,Status
+"This price list no longer exists","This price list no longer exists"
+Weight,Weight
+"You deleted the item","You deleted the item"
+"You deleted the price list","You deleted the price list"
+"You saved the price list","You saved the price list"
+"Choose how the discounts will be applied","Choose how the discounts will be applied"
+"Choose how the discounts will be applied.","Choose how the discounts will be applied."
+"Enable or disable the custom B2B Price Lists functionality.","Enable or disable the custom B2B Price Lists functionality."
+"Enable Price Lists","Enable Price Lists"
+"Price Lists Configuration","Price Lists Configuration"
+"Resolution Mode","Resolution Mode"
+Add,Add
+Amount,Amount
+Cancel,Cancel
+"Confirm & Add","Confirm & Add"
+"Could not load product details","Could not load product details"
+"Discount Type","Discount Type"
+"Please save the Price List first before adding products","Please save the Price List first before adding products"
+"Please select at least one product","Please select at least one product"
+Product,Product
+Qty,Qty
+"Set Pricing for Selected Products","Set Pricing for Selected Products"
+SKU,SKU
+"Add New Price List","Add New Price List"
+"List Items","List Items"
+"Companies Using This Price List","Companies Using This Price List"

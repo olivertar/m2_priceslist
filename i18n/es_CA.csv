@@ -1,0 +1,67 @@
+"%1 items added","%1 articles afegits"
+Active,Actiu
+"Are you sure you want to delete ""%1""?","Esteu segur que voleu eliminar ""%1""?"
+"Are you sure you want to remove this item?","Esteu segur que voleu treure aquest article?"
+"Are you sure you want to remove this price list from the company?","Esteu segur que voleu treure aquesta llista de preus de l'empresa?"
+"A total of %1 record(s) have been deleted","S'han eliminat %1 registre(s) en total"
+Back,Tornar
+Cascade,Cascada
+Code,Codi
+Delete,Eliminar
+"Delete ""%1""","Eliminar ""%1"""
+"Delete Item","Eliminar Article"
+"Delete Price List","Eliminar Llista de Preus"
+Edit,Editar
+"Edit Company","Editar Empresa"
+"Edit Price List","Editar Llista de Preus"
+"Fixed Amount Discount","Descompte d'Import Fix"
+"Fixed Price Override","Preu Fix Preferent"
+ID,ID
+Inactive,Inactiu
+"Invalid form key. Please refresh the page","Clau de formulari no vàlida. Si us plau, recarregueu la pàgina"
+"Invalid price list code","Codi de llista de preus no vàlid"
+"Manage Price Lists","Gestionar Llistes de Preus"
+"New Price List","Nova Llista de Preus"
+"No items selected","No hi ha articles seleccionats"
+"Percentage Discount","Descompte per Percentatge"
+"Please correct the data sent","Si us plau, corregiu les dades enviades"
+"Price List ID is missing","Manca l'ID de la llista de preus"
+"Price List Item with id ""%1"" does not exist","L'article de llista de preus amb id ""%1"" no existeix"
+"Price List Name","Nom de la Llista de Preus"
+"Price Lists","Llistes de Preus"
+"Price List with code ""%1"" does not exist","La llista de preus amb codi ""%1"" no existeix"
+"Price List with id ""%1"" does not exist","La llista de preus amb id ""%1"" no existeix"
+Priority,Prioritat
+Remove,Treure
+"Remove Price List","Treure Llista de Preus"
+"Save and Continue Edit","Desar i Continuar Editant"
+"Save Price List","Desar Llista de Preus"
+"Something went wrong while saving the item","Alguna cosa ha anat malament en desar l'article"
+"Something went wrong while saving the price list","Alguna cosa ha anat malament en desar la llista de preus"
+Status,Estat
+"This price list no longer exists","Aquesta llista de preus ja no existeix"
+Weight,Pes
+"You deleted the item","Heu eliminat l'article"
+"You deleted the price list","Heu eliminat la llista de preus"
+"You saved the price list","Heu desat la llista de preus"
+"Choose how the discounts will be applied","Trieu com s'aplicaran els descomptes"
+"Choose how the discounts will be applied.","Trieu com s'aplicaran els descomptes."
+"Enable or disable the custom B2B Price Lists functionality.","Habilitar o deshabilitar la funcionalitat de Llistes de Preus B2B personalitzades."
+"Enable Price Lists","Habilitar Llistes de Preus"
+"Price Lists Configuration","Configuració de Llistes de Preus"
+"Resolution Mode","Mode de Resolució"
+Add,Afegir
+Amount,Import
+Cancel,Cancel·lar
+"Confirm & Add","Confirmar i Afegir"
+"Could not load product details","No s'han pogut carregar els detalls del producte"
+"Discount Type","Tipus de Descompte"
+"Please save the Price List first before adding products","Si us plau, deseu la Llista de Preus abans d'afegir productes"
+"Please select at least one product","Si us plau, seleccioneu almenys un producte"
+Product,Producte
+Qty,Quantitat
+"Set Pricing for Selected Products","Establir Preus per als Productes Seleccionats"
+SKU,SKU
+"Add New Price List","Afegeix una nova llista de preus"
+"List Items","Llista de productes"
+"Companies Using This Price List","Empreses que utilitzen aquesta llista de preus"
