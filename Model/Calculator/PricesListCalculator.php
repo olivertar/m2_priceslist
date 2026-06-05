@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace Orangecat\PricesList\Model\Calculator;
 
+use Magento\Framework\Stdlib\DateTime\DateTime as DateTimeHelper;
 use Orangecat\Prices\Api\PriceCalculatorInterface;
 use Orangecat\PricesList\Model\Config;
 use Orangecat\PricesList\Model\Config\Source\Mode;
+use Orangecat\PricesList\Model\ResourceModel\PriceListCompany\Collection as CompanyCollection;
 use Orangecat\PricesList\Model\ResourceModel\PriceListCompany\CollectionFactory as CompanyCollectionFactory;
 use Orangecat\PricesList\Model\ResourceModel\PriceListItem\CollectionFactory as ItemCollectionFactory;
 
@@ -28,12 +30,26 @@ class PricesListCalculator implements PriceCalculatorInterface
      * @param Config $config
      * @param CompanyCollectionFactory $companyCollectionFactory
      * @param ItemCollectionFactory $itemCollectionFactory
+     * @param DateTimeHelper $dateTime
      */
     public function __construct(
         private readonly Config $config,
         private readonly CompanyCollectionFactory $companyCollectionFactory,
-        private readonly ItemCollectionFactory $itemCollectionFactory
+        private readonly ItemCollectionFactory $itemCollectionFactory,
+        private readonly DateTimeHelper $dateTime
     ) {
+    }
+
+    /**
+     * Filter collection to only price lists that are active and within their date range.
+     */
+    private function applyActiveFilters(CompanyCollection $collection): void
+    {
+        $now = $this->dateTime->gmtDate();
+        $select = $collection->getSelect();
+        $select->where('pl.is_active = 1');
+        $select->where('pl.start_date IS NULL OR pl.start_date <= ?', $now);
+        $select->where('pl.end_date IS NULL OR pl.end_date >= ?', $now);
     }
 
     /**
@@ -50,6 +66,7 @@ class PricesListCalculator implements PriceCalculatorInterface
         $listsCollection = $this->companyCollectionFactory->create()
             ->addFieldToFilter('company_id', $companyId)
             ->setOrder('priority', 'DESC');
+        $this->applyActiveFilters($listsCollection);
 
         if ($listsCollection->getSize() === 0) {
             return null; // Company has no price lists
@@ -132,6 +149,7 @@ class PricesListCalculator implements PriceCalculatorInterface
         $listsCollection = $this->companyCollectionFactory->create()
             ->addFieldToFilter('company_id', $companyId)
             ->setOrder('priority', 'DESC');
+        $this->applyActiveFilters($listsCollection);
 
         if ($listsCollection->getSize() === 0) {
             return [];
