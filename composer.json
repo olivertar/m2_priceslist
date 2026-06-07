@@ -22,12 +22,6 @@
     "require": {
         "php": ">=8.1",
         "magento/framework": "*",
-        "magento/module-backend": "*",
-        "magento/module-catalog": "*",
-        "magento/module-config": "*",
-        "magento/module-import-export": "*",
-        "magento/module-store": "*",
-        "magento/module-ui": "*",
         "orangecat/core": "*",
         "orangecat/module-company": "*",
         "orangecat/module-prices": "*"
